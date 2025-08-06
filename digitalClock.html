@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+    <!-- container -->
+    <div class="bg-gray-800 p-6 rounded-3xl shadow-2xl w-80">
+        <div class="flex items-center justify-center mb-6 p-2">
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <span class="ball"></span>
+            </label>
+        </div>
+        <!--Buttons-->
+        <div class="grid grid-cols-3 gap-3">
+            <div id="date"
+                class="col-span-3 bg-gray-700 text-white text-center text-2xl p-4 rounded-xl mb-4 shadow-inner">
+            </div>
+            <div id="hour" class="bg-gray-700 text-white text-center text-3xl p-4 rounded-xl mb-4 shadow-inner">
+            </div>
+            <div id="minute" class="bg-gray-700 text-white text-center text-3xl p-4 rounded-xl mb-4 shadow-inner">
+            </div>
+            <div id="second" class="bg-gray-700 text-white text-center text-3xl p-4 rounded-xl mb-4 shadow-inner">
+            </div>
+        </div>
+        <div class="grid grid-cols-4 gap-3 mt-4">
+            <div id="session"
+                class="col-start-2 col-span-2 bg-gray-700 text-white text-center text-3xl p-4 rounded-xl mb-4 shadow-inner order">
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+<style>
+    .checkbox {
+        opacity: 0;
+        position: absolute;
+    }
+
+    .checkbox-label {
+        background-color: #4a5568;
+        width: 50px;
+        height: 26px;
+        border-radius: 50px;
+        position: relative;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .fa-moon {
+        color: #ffffff;
+    }
+
+    .fa-sun {
+        color: #ffffff;
+    }
+
+    .checkbox-label .ball {
+        background-color: #15803d;
+        width: 22px;
+        height: 22px;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        transition: transform 0.2s linear;
+    }
+
+    .checkbox:checked+.checkbox-label .ball {
+        transform: translateX(24px);
+    }
+</style>
+<script>
+    function getTime() {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const localTime = new Date()
+        console.log(localTime);
+        let month = monthNames[localTime.getMonth()]
+        let day = localTime.getDate()
+        let year = localTime.getFullYear()
+        let hour = localTime.getHours()
+        let minute = localTime.getMinutes()
+        let second = localTime.getSeconds()
+        let session = 'AM'
+
+        if (hour >= 12) {
+            session = 'PM';
+            if (hour > 12) hour -= 12;
+        }
+
+        document.getElementById('hour').innerHTML = hour
+        document.getElementById('minute').innerHTML = minute
+        document.getElementById('second').innerHTML = second
+        document.getElementById('session').innerHTML = session
+        document.getElementById('date').innerHTML = `${month}&nbsp;&nbsp;&nbsp;${day}&nbsp;&nbsp;&nbsp;${year}`;
+
+    }
+    setInterval(getTime, 1000); //update every seconds
+
+    getTime()
+</script>
+
+</html>
